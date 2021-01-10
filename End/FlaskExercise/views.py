@@ -14,10 +14,11 @@ from FlaskExercise.models import User
 @login_required
 def home():
     user = get_data(Config.GRAPH_USER_URL)
-    save_image()
+    status, image_ref = save_image()
     return render_template('index.html'
                            , user=user.json()
-                           , image_file=Config.IMAGE_NAME
+                           , image_file=image_ref
+                           , image_status=status
                            )
 
 
@@ -119,10 +120,13 @@ def get_data(url=None):
 
 def save_image():
     image = get_data(Config.GRAPH_IMAGE_URL)
-    if image.ok:
-        photo = image.content
-    else:
-        photo = Avatars.gravatar('email_hash', size=300)
     filename = Config.SAVE_AS
-    with open(filename, 'wb') as fhandle:
-        fhandle.write(photo)
+    if image.ok:
+        image_ref = Config.IMAGE_NAME
+        photo = image.content
+        with open(filename, 'wb') as fhandle:
+            fhandle.write(photo)
+    else:
+        image_ref = Avatars.gravatar('email_hash', size=300)
+    return image.ok, image_ref
+

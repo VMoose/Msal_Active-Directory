@@ -17,7 +17,11 @@
         <p>Welcome to the site {{user['displayName']}}</p><br>
         <div>
           <div style="float:left; width:45%; text-align:end;">
-            <img height="300px" width="300px" src="{{url_for('static', filename='images/' + image_file)}}"><br><br>
+            {% if image_status %}
+              <img height="300px" width="300px" src="{{url_for('static', filename='images/' + image_file)}}"><br><br>
+            {% else %}
+              <img height="300px" width="300px" src="{{image_file}}">
+            {% endif %}
           </div>
           <div style="float:right; width:45%; text-align:left;">
             <h3>FirstName: {{user['givenName']}}</h3>
