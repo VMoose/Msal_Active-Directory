@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>OAuth2 with MSAL</title>
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+      name="viewport"
+    />
+    <link rel="stylesheet" type="text/css" href="../static/main.css"/>
+  </head>
+
+  <body>
+    <div class = "container">
+      <div class="header box">For Authenticated User Eyes Only</div>
+      <div class="content box">
+        <p>Welcome to the site {{user['displayName']}}</p><br>
+        <div>
+          <div style="float:left; width:45%; text-align:end;">
+            <img height="300px" width="300px" src="{{url_for('static', filename='images/' + image_file)}}"><br><br>
+          </div>
+          <div style="float:right; width:45%; text-align:left;">
+            <h3>FirstName: {{user['givenName']}}</h3>
+            <h3>LastName: {{user['surname']}}</h3>
+            <h3>Email: {{user['mail']}}</h3>
+            <h3>Mobile Phone: {{user['mobilePhone']}}</h3>
+            <h3>Office Location: {{user['officeLocation']}}</h3>
+            <h3>Preferred Language: {{user['preferredLanguage']}}</h3>
+          </div>
+        </div>
+        <div style="clear:both">
+          <a href="{{ url_for('logout') }}">Logout</a></li>
+        </div>
+      </div>
+      <div class="footer box">Copyright 2020</div>
+    </div>
+  </body>
+</html>
